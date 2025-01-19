@@ -51,16 +51,90 @@ public class OpenCartActuatorAdmin {
     }
 
 
-//    public void scrollToElement(By elementLocator) {
-//        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(elementLocator));
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
-//        // Wait for a moment
-//        try {
-//            Thread.sleep(500);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    public void goToProducts(){
+        try {
+            WebElement catalogTab = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//nav[1]/ul[1]/li[2]/a[1]")));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", catalogTab);
+
+            WebElement productsTab = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"collapse-1\"]/li[2]/a")));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", productsTab);
+
+
+        } catch (Exception e) {
+            System.out.println("Error clicking on the reviews tab: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+
+
+    public void findMacBookInProducts(String productName, String model) throws InterruptedException {
+        // Wait until the name input is present and interactable
+        WebElement productNameElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='input-name']")));
+        productNameElement.sendKeys(productName);
+
+        // Wait until the review input is present and interactable
+        WebElement modelElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='input-model']")));
+        modelElement.sendKeys(model);
+
+        scrollToElement(By.xpath("//*[@id='button-filter']"));
+
+        // Wait until the review input is present and interactable
+        WebElement filterElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='button-filter']")));
+        filterElement.click();
+
+        scrollToTopOfPage();
+    }
+
+
+    public void hideTopProduct(){
+        // Wait until the review input is present and interactable
+        WebElement editElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//td[7]/div[1]/a[1]")));
+        editElement.click();
+
+        // Wait until the review input is present and interactable
+        WebElement dataElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//form[1]/ul[1]/li[2]/a[1]")));
+        dataElement.click();
+
+        scrollToElement(By.xpath("//fieldset[4]/div[6]/label[1]"));
+
+        // Wait until the review input is present and interactable
+        WebElement statusElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='input-status']")));
+        statusElement.click();
+
+        scrollToTopOfPage();
+
+        // Wait until the review input is present and interactable
+        WebElement saveElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//div[1]/div[1]/div[1]/button[1]")));
+        saveElement.click();
+    }
+
+    public void deleteTopProduct(){
+        // Wait until the review input is present and interactable
+        WebElement checkBoxElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//td[1]/input[1]")));
+        checkBoxElement.click();
+
+        WebElement deleteElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"content\"]/div[1]/div/div/button[3]")));
+        deleteElement.click();
+
+    }
+
+
+    public void scrollToTopOfPage(){
+        scrollToElement(By.xpath("//header[1]/div[1]"));
+    }
+
+
+    public void scrollToElement(By elementLocator) {
+        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(elementLocator));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+        // Wait for a moment
+        try {
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     public void closeBrowser() throws InterruptedException {

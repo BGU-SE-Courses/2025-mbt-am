@@ -85,11 +85,10 @@ public class OpenCartActuatorUser {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class, 'alert-success')]")));
     }
 
-
-
     public void closeBrowser() throws InterruptedException {
         // Close the browser
         Thread.sleep(5000);
         driver.quit();
     }
+
 }

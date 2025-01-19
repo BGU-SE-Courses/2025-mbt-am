@@ -18,12 +18,6 @@ public class SeleniumExample {
         user.writeAReview("test1", "The MacBook is a premium laptop with excellent performance, stunning display quality, and long battery life, making it ideal for professionals.", 5 );
         user.closeBrowser();
 
-        OpenCartActuatorAdmin admin = new OpenCartActuatorAdmin();
-        admin.openCartAdmin();
-        admin.enlargeWindow();
-        admin.LogInToAdmin("admin", "1234");
-        admin.closeBrowser();
-
     }
 
 }

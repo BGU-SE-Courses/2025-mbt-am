@@ -3,16 +3,15 @@ package hellocucumber;
 public class SeleniumExampleAdmin
 {
     public static void main(String[] args) throws InterruptedException {
-        OpenCartActuatorAdmin registration = new OpenCartActuatorAdmin();
+        OpenCartActuatorAdmin admin = new OpenCartActuatorAdmin();
+        admin.openCartAdmin();
+        admin.enlargeWindow();
+        admin.LogInToAdmin("admin", "am1234");
 
-        registration.openCartAdmin();
-        registration.enlargeWindow();
-        registration.enterLoginInfoAdmin("admin","1234");
-//        registration.goToMacBookProduct();
-//        registration.scrollToReviews();
-//        registration.goToReviews();
-//        registration.writeAReview("test1", "The MacBook is a premium laptop with excellent performance, stunning display quality, and long battery life, making it ideal for professionals.", 5 );
-        registration.closeBrowser();
+        admin.goToProducts();
+        admin.findMacBookInProducts("MacBook", "Product 16");
+        admin.hideTopProduct();
+        admin.closeBrowser();
 
 
     }
