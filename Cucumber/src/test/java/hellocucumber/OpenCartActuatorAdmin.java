@@ -20,6 +20,20 @@ public class OpenCartActuatorAdmin {
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
+    // webDriver: "webdriver.chrome.driver", driverPath: "Selenium/chromedriver.exe"
+    public void initSession(String webDriver, String path){
+        System.setProperty(webDriver, path);
+        this.driver = new ChromeDriver();
+        this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
+        try {
+            openCartAdmin();
+            enlargeWindow();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void openCartAdmin() throws InterruptedException {
         // Navigate to the OpenCart website
         driver.get("http://localhost/opencartsite/admin/");

@@ -20,6 +20,20 @@ public class OpenCartActuatorUser {
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
+    // webDriver: "webdriver.chrome.driver", driverPath: "Selenium/chromedriver.exe"
+    public void initSession(String webDriver, String path){
+        System.setProperty(webDriver, path);
+        this.driver = new ChromeDriver();
+        this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
+        try {
+            openCart();
+            enlargeWindow();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void openCart() throws InterruptedException {
         // Navigate to the OpenCart website
         driver.get("http://localhost/OpenCartsite");
@@ -81,7 +95,11 @@ public class OpenCartActuatorUser {
         WebElement continueCheckbox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='button-review']")));
         continueCheckbox.click();
 
-        // Optionally, wait for a success message or completion confirmation
+        gotASuccessMessage();
+    }
+
+    public void gotASuccessMessage(){
+        // wait for a success message or completion confirmation
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class, 'alert-success')]")));
     }
 
