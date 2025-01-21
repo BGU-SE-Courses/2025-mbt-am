@@ -2,16 +2,9 @@ package hellocucumber;
 
 import io.cucumber.java.en.*;
 
-import org.junit.jupiter.api.Assertions.*;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.time.Duration;
-import java.util.ArrayList;
-
 public class StepDefinitions {
     private static OpenCartActuatorUser actuatorUser;
+    private static OpenCartActuatorAdmin actuatorAdmin;
     String driverPath = "Selenium/chromedriver.exe";
     String webDriver = "C:\\Users\\noash\\OneDrive - post.bgu.ac.il\\Studies\\2025A\\SoftwareQualityEngineering\\projects\\project4\\2025-mbt-am\\Selenium\\chromedriver.exe";
 
@@ -42,12 +35,45 @@ public class StepDefinitions {
         actuatorUser.writeAReview(arg0,arg1,Integer.parseInt(arg2));
     }
 
-
     @Then("Message display successfully")
     public void messageDisplaySuccessfully() {
         actuatorUser.gotASuccessMessage();
     }
 
 
+    public void OpenCartInitAdmin() throws InterruptedException {
+        System.out.println("--------------- INITIALIZING OPENCART ADMIN TEST - OPENING WEBPAGE ---------------");
 
+        actuatorAdmin = new OpenCartActuatorAdmin();
+        actuatorAdmin.initSession(webDriver,driverPath);
+    }
+
+
+    @Given("The admin is logged in with {string} and {string}")
+    public void theAdminIsLoggedInWithAnd(String arg0, String arg1) throws InterruptedException {
+        OpenCartInitAdmin();
+        actuatorAdmin.LogInToAdmin(arg0, arg1);
+    }
+
+    @And("The admin on the Products Page")
+    public void theAdminOnTheProductsPage() {
+        actuatorAdmin.goToProductsPage();
+    }
+
+    @And("the admin selected specific product")
+    public void theAdminSelectedSpecificProduct() throws InterruptedException {
+        actuatorAdmin.findProductInProducts("MacBook", "Product 16");
+    }
+
+    @When("The admin deletes the product")
+    public void theAdminDeletesTheProduct() {
+        //TODO: change to delete
+        actuatorAdmin.hideTopProduct();
+    }
+
+    @Then("check product is deleted from catalog")
+    public void checkProductIsDeletedFromCatalog() {
+        //TODO: check product is deleted from catalog
+        actuatorAdmin.gotASuccessMessage();
+    }
 }

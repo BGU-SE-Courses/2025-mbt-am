@@ -10,17 +10,13 @@ Feature: A set of scenarios for testing the review operation on Opencart
       | test | 0123456789012345678901234 | 5 |
 
 
+  Scenario Outline: The admin deletes the product
+    Given The admin is logged in with "<adminName>" and "<Password>"
+    And The admin on the Products Page
+    And the admin selected specific product
+    When The admin deletes the product
+    Then check product is deleted from catalog
 
-
-
-
-#  Scenario Outline: The admin deletes the product
-#    Given The admin is logged in with "<adminName>" and "<Password>"
-#    And The admin on the Products Page
-#    And the admin selected specific product
-#    When The admin deletes the product
-#    Then Message display successfully
-#
-#    Examples:
-#      | adminName           | Password  |
-#      | admin               | am1234  |
+    Examples:
+      | adminName           | Password  |
+      | admin               | am1234  |

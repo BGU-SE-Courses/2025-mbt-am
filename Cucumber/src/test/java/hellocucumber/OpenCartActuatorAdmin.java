@@ -13,11 +13,11 @@ public class OpenCartActuatorAdmin {
     private WebDriverWait wait;
 
     public OpenCartActuatorAdmin() {
-        String driverPath = "Selenium/chromedriver.exe";
-        System.setProperty("webdriver.chrome.driver", driverPath);
-
-        driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//        String driverPath = "Selenium/chromedriver.exe";
+//        System.setProperty("webdriver.chrome.driver", driverPath);
+//
+//        driver = new ChromeDriver();
+//        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     // webDriver: "webdriver.chrome.driver", driverPath: "Selenium/chromedriver.exe"
@@ -65,7 +65,7 @@ public class OpenCartActuatorAdmin {
     }
 
 
-    public void goToProducts(){
+    public void goToProductsPage(){
         try {
             WebElement catalogTab = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//nav[1]/ul[1]/li[2]/a[1]")));
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", catalogTab);
@@ -82,7 +82,8 @@ public class OpenCartActuatorAdmin {
 
 
 
-    public void findMacBookInProducts(String productName, String model) throws InterruptedException {
+    public void findProductInProducts(String productName, String model ) throws InterruptedException {
+        zoomOut();
         // Wait until the name input is present and interactable
         WebElement productNameElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='input-name']")));
         productNameElement.sendKeys(productName);
@@ -102,6 +103,7 @@ public class OpenCartActuatorAdmin {
 
 
     public void hideTopProduct(){
+        zoomOut();
         // Wait until the review input is present and interactable
         WebElement editElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//td[7]/div[1]/a[1]")));
         editElement.click();
@@ -109,6 +111,8 @@ public class OpenCartActuatorAdmin {
         // Wait until the review input is present and interactable
         WebElement dataElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//form[1]/ul[1]/li[2]/a[1]")));
         dataElement.click();
+
+        zoomOut();
 
         scrollToElement(By.xpath("//fieldset[4]/div[6]/label[1]"));
 
@@ -123,7 +127,12 @@ public class OpenCartActuatorAdmin {
         saveElement.click();
     }
 
-    //TODO: add a successes check for hide
+    public void gotASuccessMessage(){
+        // wait for a success message or completion confirmation
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class, 'alert-success')]")));
+    }
+
+    //TODO: add a successes check for delete
 
     public void deleteTopProduct(){
         // Wait until the review input is present and interactable
@@ -150,6 +159,11 @@ public class OpenCartActuatorAdmin {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+    }
+
+    public void zoomOut() {
+        // Execute JavaScript to adjust the zoom level
+        ((JavascriptExecutor) driver).executeScript("document.body.style.zoom='50%';");
     }
 
 
