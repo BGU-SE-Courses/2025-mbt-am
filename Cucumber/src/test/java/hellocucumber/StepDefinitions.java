@@ -9,6 +9,8 @@ public class StepDefinitions {
     String webDriver = "C:\\Users\\noash\\OneDrive - post.bgu.ac.il\\Studies\\2025A\\SoftwareQualityEngineering\\projects\\project4\\2025-mbt-am\\Selenium\\chromedriver.exe";
 
 
+    // USER
+
     public void OpenCartInitUser() throws InterruptedException {
         System.out.println("--------------- INITIALIZING OPENCART TEST - OPENING WEBPAGE ---------------");
 
@@ -36,9 +38,12 @@ public class StepDefinitions {
     }
 
     @Then("Message display successfully")
-    public void messageDisplaySuccessfully() {
+    public void messageDisplaySuccessfully() throws InterruptedException {
         actuatorUser.gotASuccessMessage();
     }
+
+
+    // ADMIN
 
 
     public void OpenCartInitAdmin() throws InterruptedException {
@@ -72,7 +77,7 @@ public class StepDefinitions {
     }
 
     @Then("check product is deleted from catalog")
-    public void checkProductIsDeletedFromCatalog() {
+    public void checkProductIsDeletedFromCatalog() throws InterruptedException {
         //TODO: check product is deleted from catalog
         actuatorAdmin.gotASuccessMessage();
     }

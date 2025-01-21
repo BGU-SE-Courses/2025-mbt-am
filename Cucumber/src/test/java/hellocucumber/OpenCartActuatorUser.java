@@ -105,13 +105,12 @@ public class OpenCartActuatorUser {
         // Wait until the "Agree" checkbox or button is clickable and click it
         WebElement continueCheckbox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='button-review']")));
         continueCheckbox.click();
-
-        gotASuccessMessage();
     }
 
-    public void gotASuccessMessage(){
+    public void gotASuccessMessage() throws InterruptedException {
         // wait for a success message or completion confirmation
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class, 'alert-success')]")));
+        closeBrowser();
     }
 
     public void closeBrowser() throws InterruptedException {
