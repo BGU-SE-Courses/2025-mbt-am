@@ -41,42 +41,26 @@ public class OpenCartActuatorAdmin {
         System.setProperty(webDriver, path);
         this.driver = new ChromeDriver();
         this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
-        try {
-            openCartAdmin();
-            enlargeWindow();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        openCartAdmin();
+        enlargeWindow();
     }
 
     public void openCartAdmin() {
-        try {
-            driver.get(XPATH_LOCATORS.get("URL"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void enlargeWindow() {
-        driver.manage().window().maximize();
+        driver.get(XPATH_LOCATORS.get("URL"));
     }
 
     public void LogInToAdmin(String userName, String password) {
-        try {
-            WebElement userNameElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_LOCATORS.get("USERNAME"))));
-            userNameElement.sendKeys(userName);
+        WebElement userNameElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_LOCATORS.get("USERNAME"))));
+        userNameElement.sendKeys(userName);
 
-            WebElement passwordElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_LOCATORS.get("PASSWORD"))));
-            passwordElement.sendKeys(password);
+        WebElement passwordElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_LOCATORS.get("PASSWORD"))));
+        passwordElement.sendKeys(password);
 
-            WebElement continueButtonElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_LOCATORS.get("CONTINUE_BUTTON"))));
-            continueButtonElement.click();
+        WebElement continueButtonElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_LOCATORS.get("CONTINUE_BUTTON"))));
+        continueButtonElement.click();
 
-            WebElement exitWarningElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_LOCATORS.get("EXIT_WARNING_BUTTON"))));
-            exitWarningElement.click();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        WebElement exitWarningElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_LOCATORS.get("EXIT_WARNING_BUTTON"))));
+        exitWarningElement.click();
     }
 
     public void goToProductsPage() {
@@ -92,60 +76,44 @@ public class OpenCartActuatorAdmin {
     }
 
     public void findProductInProducts(String productName, String model) {
-        try {
-            zoomOut();
-            WebElement productNameElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_LOCATORS.get("PRODUCT_NAME"))));
-            productNameElement.sendKeys(productName);
+        zoomOut();
+        WebElement productNameElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_LOCATORS.get("PRODUCT_NAME"))));
+        productNameElement.sendKeys(productName);
 
-            WebElement productModelElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_LOCATORS.get("PRODUCT_MODEL"))));
-            productModelElement.sendKeys(model);
+        WebElement productModelElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_LOCATORS.get("PRODUCT_MODEL"))));
+        productModelElement.sendKeys(model);
 
-            scrollToElement(By.xpath(XPATH_LOCATORS.get("FILTER_BUTTON")));
+        scrollToElement(By.xpath(XPATH_LOCATORS.get("FILTER_BUTTON")));
 
-            WebElement filterButtonElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_LOCATORS.get("FILTER_BUTTON"))));
-            filterButtonElement.click();
+        WebElement filterButtonElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_LOCATORS.get("FILTER_BUTTON"))));
+        filterButtonElement.click();
 
-            scrollToTopOfPage();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        scrollToElement(By.xpath(XPATH_LOCATORS.get("TOP_OF_PAGE")));
     }
 
     public void hideTopProduct() {
-        try {
-            zoomOut();
-            WebElement editButtonElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_LOCATORS.get("EDIT_BUTTON"))));
-            editButtonElement.click();
+        zoomOut();
+        WebElement editButtonElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_LOCATORS.get("EDIT_BUTTON"))));
+        editButtonElement.click();
 
-            WebElement dataTabButtonElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_LOCATORS.get("DATA_TAB_BUTTON"))));
-            dataTabButtonElement.click();
+        WebElement dataTabButtonElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_LOCATORS.get("DATA_TAB_BUTTON"))));
+        dataTabButtonElement.click();
 
-            zoomOut();
-            scrollToElement(By.xpath(XPATH_LOCATORS.get("STATUS_BOX")));
+        zoomOut();
+        scrollToElement(By.xpath(XPATH_LOCATORS.get("STATUS_BOX")));
 
-            WebElement statusToggleElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_LOCATORS.get("STATUS_TOGGLE"))));
-            statusToggleElement.click();
+        WebElement statusToggleElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_LOCATORS.get("STATUS_TOGGLE"))));
+        statusToggleElement.click();
 
-            scrollToTopOfPage();
+        scrollToElement(By.xpath(XPATH_LOCATORS.get("TOP_OF_PAGE")));
 
-            WebElement saveButtonElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_LOCATORS.get("SAVE_BUTTON"))));
-            saveButtonElement.click();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        WebElement saveButtonElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_LOCATORS.get("SAVE_BUTTON"))));
+        saveButtonElement.click();
     }
 
     public void gotASuccessMessage() {
-        try {
-            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPATH_LOCATORS.get("SUCCESS_ALERT"))));
-            closeBrowser();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void scrollToTopOfPage() {
-        scrollToElement(By.xpath(XPATH_LOCATORS.get("TOP_OF_PAGE")));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPATH_LOCATORS.get("SUCCESS_ALERT"))));
+        closeBrowser();
     }
 
     public void scrollToElement(By elementLocator) {
@@ -160,6 +128,10 @@ public class OpenCartActuatorAdmin {
 
     public void zoomOut() {
         ((JavascriptExecutor) driver).executeScript("document.body.style.zoom='50%';");
+    }
+
+    public void enlargeWindow() {
+        driver.manage().window().maximize();
     }
 
     public void closeBrowser() {
