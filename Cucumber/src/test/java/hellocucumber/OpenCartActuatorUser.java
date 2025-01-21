@@ -18,7 +18,7 @@ public class OpenCartActuatorUser {
 
     static {
         XPATH_LOCATORS.put("URL", "http://localhost/opencartsite");
-        XPATH_LOCATORS.put("REVIEWS_TAB", "//div[2]/div[1]/p[1]/a[1]");//main[1]/div[2]/div[1]/div[1]/ul[1]/li[3]/a[1]
+        XPATH_LOCATORS.put("REVIEWS_TAB", "//div[2]/div[1]/p[1]/a[1]");
         XPATH_LOCATORS.put("FIRST_PRODUCT_IN_PAGE", "//main[1]/div[2]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]");
         XPATH_LOCATORS.put("FULL_NAME", "//*[@id='input-author']");
         XPATH_LOCATORS.put("REVIEW_TEXT_BOX", "//*[@id='input-text']");

@@ -75,7 +75,6 @@ public class StepDefinitions {
 
     @When("The admin deletes the product")
     public void theAdminDeletesTheProduct() {
-        //TODO: change to delete
         actuatorAdmin.hideTopProduct();
     }
 
