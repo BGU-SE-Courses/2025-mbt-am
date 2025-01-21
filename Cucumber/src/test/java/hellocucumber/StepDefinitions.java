@@ -22,7 +22,7 @@ public class StepDefinitions {
     @Given("The user is on the product page")
     public void theUserIsOnTheProductPage() throws InterruptedException {
         OpenCartInitUser();
-        actuatorUser.goToMacBookProduct();
+        actuatorUser.goToFirstProductInPage();
 
     }
 

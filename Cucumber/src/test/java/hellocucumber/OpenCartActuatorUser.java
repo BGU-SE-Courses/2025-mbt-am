@@ -6,64 +6,61 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-//import org.junit.Assert;
+import java.util.HashMap;
+import java.util.Map;
 
 public class OpenCartActuatorUser {
     private WebDriver driver;
     private WebDriverWait wait;
 
-    public OpenCartActuatorUser() {
-//        String driverPath = "Selenium/chromedriver.exe";
-//        System.setProperty("webdriver.chrome.driver", driverPath);
-//
-//        driver = new ChromeDriver();
-//        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//        String driverPath = "Selenium/chromedriver.exe";
-//        String webDriver = "webdriver.chrome.driver";
-//        initSession(webDriver, driverPath);
+    // Map to store all XPath locators
+    private static final Map<String, String> XPATH_LOCATORS = new HashMap<>();
+
+    static {
+        XPATH_LOCATORS.put("URL", "http://localhost/opencartsite");
+        XPATH_LOCATORS.put("REVIEWS_TAB", "//main[1]/div[2]/div[1]/div[1]/ul[1]/li[3]/a[1]");
+        XPATH_LOCATORS.put("FIRST_PRODUCT_IN_PAGE", "//main[1]/div[2]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]");
+        XPATH_LOCATORS.put("FULL_NAME", "//*[@id='input-author']");
+        XPATH_LOCATORS.put("REVIEW_TEXT_BOX", "//*[@id='input-text']");
+        XPATH_LOCATORS.put("RATING_SCALE", "//div[4]/div[1]/input[x]");
+        XPATH_LOCATORS.put("CONTINUE_BUTTON", "//*[@id='button-review']");
+        XPATH_LOCATORS.put("SUCCESS_ALERT", "//div[contains(@class, 'alert-success')]");
     }
 
-    // webDriver: "webdriver.chrome.driver", driverPath: "Selenium/chromedriver.exe"
-    public void initSession(String webDriver, String path){
+    // webDriver: absolute path to webDriver, driverPath: "Selenium/chromedriver.exe"
+    public void initSession(String webDriver, String path) {
         System.setProperty(webDriver, path);
         this.driver = new ChromeDriver();
-
         this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
         try {
             openCart();
             enlargeWindow();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void openCart() throws InterruptedException {
-        // Navigate to the OpenCart website
-        driver.get("http://localhost/OpenCartsite");
-        Thread.sleep(1000);
+    public void openCart() {
+        try {
+            // Navigate to the OpenCart website using the URL from the map
+            driver.get(XPATH_LOCATORS.get("URL"));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
-    public void enlargeWindow(){
-        // maximize the window - some web apps look different in different sizes
+    public void enlargeWindow() {
         driver.manage().window().maximize();
-
-    }
-
-    public void zoomOut() {
-        // Execute JavaScript to adjust the zoom level
-        ((JavascriptExecutor) driver).executeScript("document.body.style.zoom='50%';");
     }
 
     public void scrollToReviews() {
-        // Use an XPath to locate the reviews section
-        scrollToElement(By.xpath("//main[1]/div[2]/div[1]/div[1]/ul[1]/li[3]/a[1]")); // Replace with the correct XPath for the reviews section
+        // Use an XPath from the map to locate the reviews section
+        scrollToElement(By.xpath(XPATH_LOCATORS.get("REVIEWS_TAB")));
     }
 
     public void scrollToElement(By elementLocator) {
         WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(elementLocator));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
-        // Wait for a moment
         try {
             Thread.sleep(500);
         } catch (InterruptedException e) {
@@ -71,15 +68,14 @@ public class OpenCartActuatorUser {
         }
     }
 
-
-    public void goToMacBookProduct(){
-        driver.findElement(By.xpath("//main[1]/div[2]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]")).click();
+    public void goToFirstProductInPage() {
+        driver.findElement(By.xpath(XPATH_LOCATORS.get("FIRST_PRODUCT_IN_PAGE"))).click();
     }
 
     public void goToReviews() {
         try {
             zoomOut();
-            WebElement reviewsTab = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//main[1]/div[2]/div[1]/div[1]/ul[1]/li[3]/a[1]")));
+            WebElement reviewsTab = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_LOCATORS.get("REVIEWS_TAB"))));
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", reviewsTab);
         } catch (Exception e) {
             System.out.println("Error clicking on the reviews tab: " + e.getMessage());
@@ -87,36 +83,37 @@ public class OpenCartActuatorUser {
         }
     }
 
-    public void writeAReview(String name, String review, int rating) {
+    public void writeAReview(String fullName, String reviewText, int rating) {
         zoomOut();
-        // Wait until the name input is present and interactable
-        WebElement nameElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='input-author']")));
-        nameElement.sendKeys(name);
+        WebElement fullNameElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_LOCATORS.get("FULL_NAME"))));
+        fullNameElement.sendKeys(fullName);
 
-        // Wait until the review input is present and interactable
-        WebElement reviewElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='input-text']")));
-        reviewElement.sendKeys(review);
+        WebElement reviewTextBoxElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_LOCATORS.get("REVIEW_TEXT_BOX"))));
+        reviewTextBoxElement.sendKeys(reviewText);
 
-        // Wait until the rating input is clickable and click the corresponding rating
-        String ratingXPath = "//div[4]/div[1]/input[x]".replace("x", String.valueOf(rating - 1));
-        WebElement ratingElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(ratingXPath)));
-        ratingElement.click();
+        String ratingXPath = XPATH_LOCATORS.get("RATING_SCALE").replace("x", String.valueOf(rating - 1));
+        WebElement ratingScaleElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(ratingXPath)));
+        ratingScaleElement.click();
 
-        // Wait until the "Agree" checkbox or button is clickable and click it
-        WebElement continueCheckbox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='button-review']")));
+        WebElement continueCheckbox = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_LOCATORS.get("CONTINUE_BUTTON"))));
         continueCheckbox.click();
     }
 
-    public void gotASuccessMessage() throws InterruptedException {
-        // wait for a success message or completion confirmation
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class, 'alert-success')]")));
+    public void gotASuccessMessage() {
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPATH_LOCATORS.get("SUCCESS_ALERT"))));
         closeBrowser();
     }
 
-    public void closeBrowser() throws InterruptedException {
-        // Close the browser
-        Thread.sleep(5000);
-        driver.quit();
+    public void zoomOut() {
+        ((JavascriptExecutor) driver).executeScript("document.body.style.zoom='50%';");
     }
 
+    public void closeBrowser() {
+        try {
+            Thread.sleep(3000);
+            driver.quit();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }
