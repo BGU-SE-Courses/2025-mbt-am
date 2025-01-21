@@ -27,6 +27,7 @@ public class OpenCartActuatorUser {
         XPATH_LOCATORS.put("SUCCESS_ALERT", "//div[contains(@class, 'alert-success')]");
     }
 
+
     // webDriver: absolute path to webDriver, driverPath: "Selenium/chromedriver.exe"
     public void initSession(String webDriver, String path) {
         System.setProperty(webDriver, path);
@@ -36,29 +37,17 @@ public class OpenCartActuatorUser {
         enlargeWindow();
     }
 
+
     public void openCart() {
         // Navigate to the OpenCart website using the URL from the map
         driver.get(XPATH_LOCATORS.get("URL"));
     }
 
-//    public void scrollToReviews() {
-//        // Use an XPath from the map to locate the reviews section
-//        scrollToElement(By.xpath(XPATH_LOCATORS.get("REVIEWS_TAB")));
-//    }
-
-//    public void scrollToElement(By elementLocator) {
-//        WebElement element = wait.until(ExpectedConditions.presenceOfElementLocated(elementLocator));
-//        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
-//        try {
-//            Thread.sleep(500);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
-//    }
 
     public void goToFirstProductInPage() {
         driver.findElement(By.xpath(XPATH_LOCATORS.get("FIRST_PRODUCT_IN_PAGE"))).click();
     }
+
 
     public void goToReviews() {
         try {
@@ -70,6 +59,7 @@ public class OpenCartActuatorUser {
             e.printStackTrace();
         }
     }
+
 
     public void writeAReview(String fullName, String reviewText, int rating) {
         zoomOut();
@@ -87,18 +77,22 @@ public class OpenCartActuatorUser {
         continueCheckbox.click();
     }
 
+
     public void gotASuccessMessage() {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(XPATH_LOCATORS.get("SUCCESS_ALERT"))));
         closeBrowser();
     }
 
+
     public void zoomOut() {
         ((JavascriptExecutor) driver).executeScript("document.body.style.zoom='50%';");
     }
 
+
     public void enlargeWindow() {
         driver.manage().window().maximize();
     }
+
 
     public void closeBrowser() {
         try {
@@ -108,4 +102,6 @@ public class OpenCartActuatorUser {
             e.printStackTrace();
         }
     }
+
+
 }
