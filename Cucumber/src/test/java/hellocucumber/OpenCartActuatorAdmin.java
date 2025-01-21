@@ -123,6 +123,8 @@ public class OpenCartActuatorAdmin {
         saveElement.click();
     }
 
+    //TODO: add a successes check for hide
+
     public void deleteTopProduct(){
         // Wait until the review input is present and interactable
         WebElement checkBoxElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//td[1]/input[1]")));

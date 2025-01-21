@@ -13,17 +13,21 @@ public class OpenCartActuatorUser {
     private WebDriverWait wait;
 
     public OpenCartActuatorUser() {
-        String driverPath = "Selenium/chromedriver.exe";
-        System.setProperty("webdriver.chrome.driver", driverPath);
-
-        driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//        String driverPath = "Selenium/chromedriver.exe";
+//        System.setProperty("webdriver.chrome.driver", driverPath);
+//
+//        driver = new ChromeDriver();
+//        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+//        String driverPath = "Selenium/chromedriver.exe";
+//        String webDriver = "webdriver.chrome.driver";
+//        initSession(webDriver, driverPath);
     }
 
     // webDriver: "webdriver.chrome.driver", driverPath: "Selenium/chromedriver.exe"
     public void initSession(String webDriver, String path){
         System.setProperty(webDriver, path);
         this.driver = new ChromeDriver();
+
         this.wait = new WebDriverWait(this.driver, Duration.ofSeconds(10));
         try {
             openCart();
@@ -44,6 +48,11 @@ public class OpenCartActuatorUser {
         // maximize the window - some web apps look different in different sizes
         driver.manage().window().maximize();
 
+    }
+
+    public void zoomOut() {
+        // Execute JavaScript to adjust the zoom level
+        ((JavascriptExecutor) driver).executeScript("document.body.style.zoom='50%';");
     }
 
     public void scrollToReviews() {
@@ -69,6 +78,7 @@ public class OpenCartActuatorUser {
 
     public void goToReviews() {
         try {
+            zoomOut();
             WebElement reviewsTab = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//main[1]/div[2]/div[1]/div[1]/ul[1]/li[3]/a[1]")));
             ((JavascriptExecutor) driver).executeScript("arguments[0].click();", reviewsTab);
         } catch (Exception e) {
@@ -78,6 +88,7 @@ public class OpenCartActuatorUser {
     }
 
     public void writeAReview(String name, String review, int rating) {
+        zoomOut();
         // Wait until the name input is present and interactable
         WebElement nameElement = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id='input-author']")));
         nameElement.sendKeys(name);
