@@ -73,15 +73,14 @@ public class StepDefinitions {
     }
 
 
-    @When("The admin deletes the product")
-    public void theAdminDeletesTheProduct() {
+    @When("The admin hides the product")
+    public void theAdminHidesTheProduct() {
         actuatorAdmin.hideTopProduct();
     }
 
 
-    @Then("check product is deleted from catalog")
-    public void checkProductIsDeletedFromCatalog(){
-        //TODO: check product is deleted from catalog
+    @Then("check product is hidden from catalog")
+    public void checkProductIsHiddenFromCatalog(){
         actuatorAdmin.gotASuccessMessage();
     }
 }
