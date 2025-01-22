@@ -1,48 +1,79 @@
-/**
- * Opens the OpenCart URL for the user.
- * @param {SeleniumSession} session - The Selenium session.
- */
-function openCart(session) {
-  session.start(XPATH_LOCATORS.USER.URL); // Access the URL for the USER
-  session.executeScript("window.moveTo(0, 0); window.resizeTo(screen.width, screen.height);"); // Maximize window
+function goToFirstProductInPage(session, data) {
+  with (session) {
+    sync({ request: Event("Begin(goToFirstProductInPage)") });
+    click(data.FIRST_PRODUCT_IN_PAGE); // Access the first product locator
+    sync({ request: Event("End(goToFirstProductInPage)") });
+  }
 }
 
-/**
- * Navigates to the first product on the product page.
- * @param {SeleniumSession} session - The Selenium session.
- */
-function goToFirstProductInPage(session) {
-  session.click(XPATH_LOCATORS.USER.FIRST_PRODUCT_IN_PAGE); // Access the first product locator
+function goToReviews(session, data) {
+  with (session) {
+    sync({ request: Event("Begin(goToReviews)") });
+    click(data.REVIEWS_TAB); // Access the reviews tab locator
+    sync({ request: Event("End(goToReviews)") });
+  }
 }
 
-/**
- * Navigates to the reviews section of the product.
- * @param {SeleniumSession} session - The Selenium session.
- */
-function goToReviews(session) {
-  session.click(XPATH_LOCATORS.USER.REVIEWS_TAB); // Access the reviews tab locator
+function writeAReview(session, data) {
+  with (session) {
+    sync({ request: Event("Begin(writeAReview)") });
+    writeText(data.FULL_NAME_BOX, data.FULL_NAME); // Fill full name
+    writeText(data.REVIEW_TEXT_BOX, data.REVIEW); // Fill review text
+    const ratingXPath = data.RATING_SCALE.replace("x", String(data.RATING - 1)); // Replace x for rating
+    click(ratingXPath); // Select rating
+    click(data.CONTINUE_BUTTON); // Submit the review
+    sync({ request: Event("End(writeAReview)") });
+  }
 }
 
-/**
- * Writes a review by filling in the name, text, and rating.
- * @param {SeleniumSession} session - The Selenium session.
- * @param {string} fullName - The reviewer's full name.
- * @param {string} reviewText - The review text.
- * @param {number} rating - The rating (1 to 5).
- */
-function writeAReview(session, fullName, reviewText, rating) {
-  session.executeScript("document.body.style.zoom='50%';"); // Zoom out the page  session.writeText(XPATH_LOCATORS.USER.FULL_NAME, fullName); // Fill full name
-  session.writeText(XPATH_LOCATORS.USER.REVIEW_TEXT_BOX, reviewText); // Fill review text
-  const ratingXPath = XPATH_LOCATORS.USER.RATING_SCALE.replace("x", String(rating - 1)); // Replace x for rating
-  session.click(ratingXPath); // Select rating
-  session.click(XPATH_LOCATORS.USER.CONTINUE_BUTTON); // Submit the review
+function gotASuccessMessage(session, data) {
+  with (session) {
+    sync({ request: Event("Begin(gotASuccessMessage)") });
+    waitForInvisibility(data.SUCCESS_ALERT); // Wait for success message
+    sync({ request: Event("End(gotASuccessMessage)") });
+  }
 }
 
-/**
- * Waits for the success message to be displayed after a review submission.
- * @param {SeleniumSession} session - The Selenium session.
- */
-function gotASuccessMessage(session) {
-  session.waitForElement(XPATH_LOCATORS.USER.SUCCESS_ALERT); // Wait for success message
+function logInToAdmin(session, data) {
+  with (session) {
+    sync({ request: Event("Begin(logInToAdmin)") });
+    writeText(data.USERNAME_BOX, data.USERNAME); // Fill admin username
+    writeText(data.PASSWORD_BOX, data.PASSWORD); // Fill admin password
+    click(data.CONTINUE_BUTTON); // Click login
+    click(data.EXIT_WARNING_BUTTON); // Handle any warnings
+    sync({ request: Event("End(logInToAdmin)") });
+  }
 }
+
+function goToProductsPage(session, data) {
+  with (session) {
+    sync({ request: Event("Begin(goToProductsPage)") });
+    click(data.CATALOG_BUTTON); // Open catalog
+    click(data.PRODUCTS_BUTTON); // Go to products page
+    sync({ request: Event("End(goToProductsPage)") });
+  }
+}
+
+function findProductInProducts(session, data, productName, productModel) {
+  with (session) {
+    sync({ request: Event("Begin(findProductInProducts)") });
+    writeText(data.PRODUCT_NAME_BOX, productName); // Input product name
+    writeText(data.PRODUCT_MODEL_BOX, productModel); // Input product model
+    click(data.FILTER_BUTTON); // Apply filter
+    sync({ request: Event("End(findProductInProducts)") });
+  }
+}
+
+function hideProduct(session, data) {
+  with (session) {
+    sync({ request: Event("Begin(hideProduct)") });
+    click(data.EDIT_BUTTON); // Open product edit page
+    click(data.DATA_TAB_BUTTON); // Go to data tab
+    click(data.STATUS_TOGGLE); // Toggle status to disable/delete
+    click(data.SAVE_BUTTON); // Save changes
+    sync({ request: Event("End(hideProduct)") });
+  }
+}
+
+
 

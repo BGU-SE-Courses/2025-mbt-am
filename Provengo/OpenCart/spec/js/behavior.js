@@ -1,30 +1,29 @@
 /* @provengo summon selenium */
-/* @provengo include ./actions.js */
 
-/**
- * Behavior: User writes a review for a product.
- */
-bthread("User Writes a Review", function () {
-    // Start a new Selenium session for the user
-    let session = new SeleniumSession("userReview");
-
-    // Open the OpenCart site and maximize the window
-    actions.openCart(session);
-
-    // Navigate to the first product on the page
-    actions.goToFirstProductInPage(session);
-
-    // Navigate to the reviews tab of the product
-    actions.goToReviews(session);
-
-    // Write a review with full name, review text, and rating
-    actions.writeAReview(session, "John Doe", "Amazing product! Highly recommend.", 5);
-
-    // Wait for the success message
-    actions.gotASuccessMessage(session);
-
-    // End the session
-    session.end();
+// User behavior
+bthread("userBehavior", function () {
+    let s = new SeleniumSession("userSession");
+    s.start(XPATH_LOCATORS.USER.URL);
+    goToFirstProductInPage(s, XPATH_LOCATORS.USER);
+    goToReviews(s, XPATH_LOCATORS.USER);
+    let userData = Object.assign({}, XPATH_LOCATORS.USER, CREDENTIALS.USER);
+    writeAReview(s, userData);
+    gotASuccessMessage(s, XPATH_LOCATORS.USER);
+    sync({ request: Event("UserReviewSuccess") }); // Signal the user success
+    s.close();
 });
 
+// Admin behavior
+bthread("adminBehavior", function () {
+    let s = new SeleniumSession("adminSession");
+    s.start(XPATH_LOCATORS.ADMIN.URL);
+    let adminData = Object.assign({}, XPATH_LOCATORS.ADMIN, CREDENTIALS.ADMIN);
+    logInToAdmin(s, adminData);
+    goToProductsPage(s, XPATH_LOCATORS.ADMIN);
+    findProductInProducts(s, XPATH_LOCATORS.ADMIN, "MacBook", "Product 16");
+    sync({ waitFor: Event("UserReviewSuccess") }); // Wait for user review success
+    hideProduct(s, XPATH_LOCATORS.ADMIN);
+    gotASuccessMessage(s, XPATH_LOCATORS.ADMIN);
+    s.close();
+});
 

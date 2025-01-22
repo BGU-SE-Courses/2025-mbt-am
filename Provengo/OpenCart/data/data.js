@@ -21,14 +21,14 @@ const CREDENTIALS = {
 const XPATH_LOCATORS = {
   ADMIN: {
     URL: "http://localhost/opencartsite/admin/",
-    USERNAME: "//*[@id='input-username']",
-    PASSWORD: "//*[@id='input-password']",
+    USERNAME_BOX: "//*[@id='input-username']",
+    PASSWORD_BOX: "//*[@id='input-password']",
     CONTINUE_BUTTON: "//button[1]",
     EXIT_WARNING_BUTTON: "//*[@id=\"modal-security\"]/div/div/div[1]/button",
     CATALOG_BUTTON: "//nav[1]/ul[1]/li[2]/a[1]",
     PRODUCTS_BUTTON: "//*[@id=\"collapse-1\"]/li[2]/a",
-    PRODUCT_NAME: "//*[@id='input-name']",
-    PRODUCT_MODEL: "//*[@id='input-model']",
+    PRODUCT_NAME_BOX: "//*[@id='input-name']",
+    PRODUCT_MODEL_BOX: "//*[@id='input-model']",
     FILTER_BUTTON: "//*[@id='button-filter']",
     EDIT_BUTTON: "//td[7]/div[1]/a[1]",
     DATA_TAB_BUTTON: "//form[1]/ul[1]/li[2]/a[1]",
@@ -42,7 +42,7 @@ const XPATH_LOCATORS = {
     URL: "http://localhost/opencartsite",
     REVIEWS_TAB: "//div[2]/div[1]/p[1]/a[1]",
     FIRST_PRODUCT_IN_PAGE: "//main[1]/div[2]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]",
-    FULL_NAME: "//*[@id='input-author']",
+    FULL_NAME_BOX: "//*[@id='input-author']",
     REVIEW_TEXT_BOX: "//*[@id='input-text']",
     RATING_SCALE: "//div[4]/div[1]/input[x]",
     CONTINUE_BUTTON: "//*[@id='button-review']",
@@ -50,7 +50,7 @@ const XPATH_LOCATORS = {
   }
 }
 
-// const session = {admin: "ADMIN_SESSION", user: "USER_SESSION"}; // Session names
+const session = {admin: "ADMIN_SESSION", user: "USER_SESSION"}; // Session names
 
 
 
