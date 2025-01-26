@@ -2,30 +2,28 @@
 This is a repository for the system-testing assignment of the Software Quality Engineering course at the [Ben-Gurion University](https://in.bgu.ac.il/), Israel.
 
 ## Assignment Description
-In this assignment, we tested an open-source software called [$$*TODO* software name$$](https://address-of-the-project.com).
+In this assignment, we tested an open-source software called OpenCart (https://www.opencart.com/).
 
-$$*TODO* Add some general description about the software$$
+
+OpenCart is a popular open-source eCommerce platform that enables businesses to create and manage online stores with ease. It offers a user-friendly interface, multi-store management, multi-language and currency support, and thousands of extensions for customization.
 
 ## Installation
-$$*TODO* Write instructions on how to install the software and prepare the testing environment$$
+For a step-by-step installation: https://www.youtube.com/watch?v=GftTTFm58d8
 
 ## What we tested
-$$*TODO* Add a description of the module and the user stories that you chose to test.
-For example, in the case of the Moodle example, you can write something like this:
+We tested the OpenCart e-commerce platform by implementing test scenarios for both Admin and User roles. Specifically, we focused on the review management and product visibility functionalities.
 
-We tested the quiz module that allows for creating and taking quizzes. We chose to test the following user stories: 
+*User story:* As a user, I want to submit a review for a product
 
-*User story:* A teacher adds a new quiz to the course with two yes/no questions
+*Preconditions:* The user is on the product page
 
-*Preconditions:* There is a course with a teacher
+*Expected outcome:* A success message is displayed, confirming that the review was successfully submitted.
 
-*Expected outcome:* The quiz is added to the course.
+*User story:* As an admin, I want to hide a specific product from the catalog, so that it is no longer available for customers to view or purchase.
 
-*User story:* A students attempts a quiz and answers correctly.
+*Preconditions:* The admin is logged in to the OpenCart admin dashboard.
 
-*Preconditions:* There is a course with a quiz with two yes/no questions and the quiz grade is calculated automatically and the grade is visible to the students upon submission.
-
-*Expected outcome:* The student receives 100.
+*Expected outcome:* A success message is displayed, confirming that the product is hidden from the catalog.
 $$
 
 ## How we tested
@@ -36,21 +34,6 @@ We used two different testing methods:
 Each of the testing methods is elaborated in its own directory. 
 
 ## Results
-Update all README.md files (except for d-e, see Section 1). Specifically, replace all $$*TODO*…$$ according to the instructions inside the $$.
-
-## Detected Bugs
-We detected the following bugs:
-
-1. Bug 1: 
-   1. General description: ...
-   2. Steps to reproduce: ...
-   3. Expected result: ...
-   4. Actual result: ...
-   5. Link to the bug report: (you are encouraged to report the bug to the developers of the software)
-2. Bug 2: ...
-
-$$*TODO* if you did not detect the bug, you should delete this section$$  
-
 
 
 
