@@ -7,7 +7,8 @@ public class StepDefinitions {
     private static OpenCartActuatorAdmin actuatorAdmin;
     String driverPath = "Selenium/chromedriver.exe";
     String webDriver = "C:\\Users\\noash\\OneDrive - post.bgu.ac.il\\Studies\\2025A\\SoftwareQualityEngineering\\projects\\project4\\2025-mbt-am\\Selenium\\chromedriver.exe";
-
+    String productName = "MacBook";
+    String productModel = "product 16";
 
     // USER
 
@@ -69,7 +70,7 @@ public class StepDefinitions {
 
     @And("the admin selected specific product")
     public void theAdminSelectedSpecificProduct(){
-        actuatorAdmin.findProductInProducts("MacBook", "Product 16");
+        actuatorAdmin.findProductInProducts(productName, productModel);
     }
 
 
