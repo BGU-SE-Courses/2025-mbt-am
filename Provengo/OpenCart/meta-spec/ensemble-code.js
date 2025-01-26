@@ -19,7 +19,7 @@ const makeGoals = function(){
  * Ranks test suites by how many events from the GOALS array were met.
  * The more goals are met, the higher the score.
  * 
- * It make no difference if a goal was met more then once.
+ * It make no difference if a goal was met more than once.
  *
  * @param {Event[][]} ensemble The test suite to be ranked.
  * @returns Number of events from GOALS that have been met.

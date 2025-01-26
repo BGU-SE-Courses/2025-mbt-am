@@ -44,7 +44,11 @@ const XPATH_LOCATORS = {
     FIRST_PRODUCT_IN_PAGE: "//main[1]/div[2]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]",
     FULL_NAME_BOX: "//*[@id='input-author']",
     REVIEW_TEXT_BOX: "//*[@id='input-text']",
-    RATING_SCALE: "//div[4]/div[1]/input[x]",
+    RATING_SCALE_1: "//*[@id='input-rating']/input[1]",
+    RATING_SCALE_2: "//*[@id='input-rating']/input[2]",
+    RATING_SCALE_3: "//*[@id='input-rating']/input[3]",
+    RATING_SCALE_4: "//*[@id='input-rating']/input[4]",
+    RATING_SCALE_5: "//*[@id='input-rating']/input[5]",
     CONTINUE_BUTTON: "//*[@id='button-review']",
     SUCCESS_ALERT: "//div[contains(@class, 'alert-success')]"
   }

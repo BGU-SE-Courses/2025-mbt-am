@@ -19,7 +19,12 @@ function writeAReview(session, data) {
     sync({ request: Event("Begin(writeAReview)") });
     writeText(data.FULL_NAME_BOX, data.FULL_NAME); // Fill full name
     writeText(data.REVIEW_TEXT_BOX, data.REVIEW); // Fill review text
-    const ratingXPath = data.RATING_SCALE.replace("x", String(data.RATING - 1)); // Replace x for rating
+
+    // Calculate the XPath for the rating input based on the given rating
+    const ratingKey = `RATING_SCALE_${data.RATING}`; // Dynamically create the key
+    const ratingXPath = data[ratingKey]; // Retrieve the XPath for the rating
+
+    scrollToElement(data.CONTINUE_BUTTON);
     click(ratingXPath); // Select rating
     click(data.CONTINUE_BUTTON); // Submit the review
     sync({ request: Event("End(writeAReview)") });
@@ -29,7 +34,7 @@ function writeAReview(session, data) {
 function gotASuccessMessage(session, data) {
   with (session) {
     sync({ request: Event("Begin(gotASuccessMessage)") });
-    waitForInvisibility(data.SUCCESS_ALERT); // Wait for success message
+    waitForVisibility(data.SUCCESS_ALERT, 5000); // Wait for alert to become visible
     sync({ request: Event("End(gotASuccessMessage)") });
   }
 }
@@ -59,7 +64,9 @@ function findProductInProducts(session, data, productName, productModel) {
     sync({ request: Event("Begin(findProductInProducts)") });
     writeText(data.PRODUCT_NAME_BOX, productName); // Input product name
     writeText(data.PRODUCT_MODEL_BOX, productModel); // Input product model
+    scrollToBottom();
     click(data.FILTER_BUTTON); // Apply filter
+    scrollToTop();
     sync({ request: Event("End(findProductInProducts)") });
   }
 }
@@ -69,7 +76,9 @@ function hideProduct(session, data) {
     sync({ request: Event("Begin(hideProduct)") });
     click(data.EDIT_BUTTON); // Open product edit page
     click(data.DATA_TAB_BUTTON); // Go to data tab
+    scrollToElement(data.STATUS_TOGGLE);
     click(data.STATUS_TOGGLE); // Toggle status to disable/delete
+    scrollToElement(data.SAVE_BUTTON);
     click(data.SAVE_BUTTON); // Save changes
     sync({ request: Event("End(hideProduct)") });
   }
