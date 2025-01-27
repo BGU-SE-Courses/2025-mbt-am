@@ -19,12 +19,11 @@ bthread("userBehavior", function () {
 // Admin behavior
 bthread("adminBehavior", function () {
     // let s = new SeleniumSession("adminSession");
-
     sAdmin.start(XPATH_LOCATORS.ADMIN.URL);
     let adminData = Object.assign({}, XPATH_LOCATORS.ADMIN, CREDENTIALS.ADMIN);
     logInToAdmin(sAdmin, adminData);
     goToProductsPage(sAdmin, XPATH_LOCATORS.ADMIN);
-    findProductInProducts(sAdmin, XPATH_LOCATORS.ADMIN, "MacBook", "Product 16");
+    findProductInProducts(sAdmin, adminData);
     sync({ waitFor: Event("UserReviewSuccess") }); // Wait for user review success
     hideProduct(sAdmin, XPATH_LOCATORS.ADMIN);
     gotASuccessMessage(sAdmin, XPATH_LOCATORS.ADMIN);

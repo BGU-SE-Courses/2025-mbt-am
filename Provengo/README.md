@@ -11,7 +11,7 @@ provengo run helloprovengo
 See [Provengo README](OpenCart/README.md) for a short description of the tool and how to use it.
 
 For a full documentation go to [https://docs.provengo.tech](https://docs.provengo.tech)
-
+run 
 ## How we created the test model:
 1. We started by creating the following files: [behavior.js](OpenCart/spec/js/behavior.js),[actions.js](OpenCart/spec/js/actions.js), and [data.js](OpenCart/data/data.js).
 2. We then ran the following command to generate the test model:

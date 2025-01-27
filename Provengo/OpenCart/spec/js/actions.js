@@ -59,11 +59,11 @@ function goToProductsPage(session, data) {
   }
 }
 
-function findProductInProducts(session, data, productName, productModel) {
+function findProductInProducts(session, data) {
   with (session) {
     sync({ request: Event("Begin(findProductInProducts)") });
-    writeText(data.PRODUCT_NAME_BOX, productName); // Input product name
-    writeText(data.PRODUCT_MODEL_BOX, productModel); // Input product model
+    writeText(data.PRODUCT_NAME_BOX, data.PRODUCT_NAME); // Input product name
+    writeText(data.PRODUCT_MODEL_BOX, data.PRODUCT_MODEL); // Input product model
     scrollToBottom();
     click(data.FILTER_BUTTON); // Apply filter
     scrollToTop();

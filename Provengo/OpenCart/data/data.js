@@ -9,6 +9,8 @@ const CREDENTIALS = {
   ADMIN: {
     USERNAME: "admin",
     PASSWORD: "am1234",
+    PRODUCT_NAME: "MacBook",
+    PRODUCT_MODEL: "Product 16"
   },
   USER:
     {
