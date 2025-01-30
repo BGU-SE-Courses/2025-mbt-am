@@ -64,9 +64,9 @@ function findProductInProducts(session, data) {
     sync({ request: Event("Begin(findProductInProducts)") });
     writeText(data.PRODUCT_NAME_BOX, data.PRODUCT_NAME); // Input product name
     writeText(data.PRODUCT_MODEL_BOX, data.PRODUCT_MODEL); // Input product model
-    scrollToBottom();
+    scrollToElement(data.FILTER_BUTTON);
     click(data.FILTER_BUTTON); // Apply filter
-    scrollToTop();
+    // scrollToTop();
     sync({ request: Event("End(findProductInProducts)") });
   }
 }

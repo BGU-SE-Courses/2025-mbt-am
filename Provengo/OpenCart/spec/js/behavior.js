@@ -1,11 +1,12 @@
 /* @provengo summon selenium */
 
-const sUser = new SeleniumSession("userSession");
-const sAdmin = new SeleniumSession("adminSession");
+// const sUser = new SeleniumSession("userSession");
+// const sAdmin = new SeleniumSession("adminSession");
 
 
 // User behavior
 bthread("userBehavior", function () {
+    let sUser = new SeleniumSession("userSession");
     sUser.start(XPATH_LOCATORS.USER.URL);
     goToFirstProductInPage(sUser, XPATH_LOCATORS.USER);
     goToReviews(sUser, XPATH_LOCATORS.USER);
@@ -18,7 +19,7 @@ bthread("userBehavior", function () {
 
 // Admin behavior
 bthread("adminBehavior", function () {
-    // let s = new SeleniumSession("adminSession");
+    let sAdmin = new SeleniumSession("adminSession");
     sAdmin.start(XPATH_LOCATORS.ADMIN.URL);
     let adminData = Object.assign({}, XPATH_LOCATORS.ADMIN, CREDENTIALS.ADMIN);
     logInToAdmin(sAdmin, adminData);
